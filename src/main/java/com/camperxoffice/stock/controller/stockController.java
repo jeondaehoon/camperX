@@ -15,3 +15,9 @@ public class stockController {
         return "stock/stockInfo";
     }
 }
+
+    @RequestMapping("/capmerX_stockLog")
+    public String capmerX_stockLog() throws Exception {
+        return "stock/stockLog";
+    }
+}

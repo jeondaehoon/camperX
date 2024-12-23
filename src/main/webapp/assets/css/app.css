@@ -974,7 +974,7 @@
     border-radius: .5rem;
     transition: all .5s;
     text-decoration: none;
-    color: #25396f
+    color: #000000
 }
 
 .sidebar-wrapper .menu .sidebar-link i, .sidebar-wrapper .menu .sidebar-link svg
