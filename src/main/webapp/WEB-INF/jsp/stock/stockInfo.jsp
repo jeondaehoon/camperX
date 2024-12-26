@@ -70,10 +70,10 @@
                                 <a href="/capmerX_stockInfo">제품 관리</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="#">재고 추적</a>
+                                <a href="capmerX_stockLog">재고 추적</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="#">재고 알림</a>
+                                <a href="/capmerX_stockAlert">재고 알림</a>
                             </li>
                         </ul>
                     </li>
@@ -85,7 +85,7 @@
                         </a>
                         <ul class="submenu ">
                             <li class="submenu-item ">
-                                <a href="#">주문 처리</a>
+                                <a href="/capmerX_orderProcess">주문 처리</a>
                             </li>
                             <li class="submenu-item ">
                                 <a href="#">주문 조회</a>

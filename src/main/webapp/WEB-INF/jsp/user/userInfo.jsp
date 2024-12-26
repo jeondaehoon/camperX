@@ -60,7 +60,7 @@
                                 <a href="/capmerX_adminRoles">권한 설정</a>
                             </li>
                         </ul>
-                    <li class="sidebar-item active has-sub">
+                    <li class="sidebar-item has-sub">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-box-seam"></i>
                             <span>재고 관리</span>
@@ -70,10 +70,10 @@
                                 <a href="/capmerX_stockInfo">제품 관리</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="/capmerX_stockLog">재고 추적</a>
+                                <a href="capmerX_stockLog">재고 추적</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="#">재고 알림</a>
+                                <a href="/capmerX_stockAlert">재고 알림</a>
                             </li>
                         </ul>
                     </li>
@@ -85,24 +85,24 @@
                         </a>
                         <ul class="submenu ">
                             <li class="submenu-item ">
-                                <a href="#">주문 처리</a>
+                                <a href="/capmerX_orderProcess">주문 처리</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="#">주문 조회</a>
+                                <a href="/capmerX_orderHistory">주문 조회</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="#">환불 처리</a>
+                                <a href="/capmerX_orderCancel">환불 처리</a>
                             </li>
                         </ul>
                     </li>
-                    <li class="sidebar-item  has-sub">
+                    <li class="sidebar-item active has-sub">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-person-bounding-box"></i>
                             <span>고객 관리</span>
                         </a>
                         <ul class="submenu ">
                             <li class="submenu-item ">
-                                <a href="#">고객 정보 관리</a>
+                                <a href="/capmerX_userInfo">고객 정보 관리</a>
                             </li>
                             <li class="submenu-item ">
                                 <a href="#">고객 서비스</a>
@@ -131,12 +131,12 @@
 </div>
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1 class="h1-title">재고 추적</h1>
+        <h1 class="h1-title">고객 정보 관리</h1>
         <form id="searchform">
             <input type="hidden" id="currentPage" name="currentPage" value="1">
             <table style="width: 10%; border-spacing: 10px;">
                 <tr>
-                    <td><input type='text' id='userName' name='userName' placeholder="이름을 입력하세요" class="form-control"></td>
+                    <td><input type='text' id='userName' name='userName' placeholder="상품명을 입력하세요" class="form-control"></td>
                     <td><input type='button' onclick='searchlist()' value='검색' class="btn btn-dark"></td>
                     <td><input type='button' onclick='searchlist()' value='삭제' class="btn btn-dark"></td>
 
@@ -150,15 +150,16 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">재고 현황</h5>
                         <form id="update">
                             <table class="table" id="userinfo">
                                 <thead>
                                 <tr>
-                                    <th scope="col" id="#">SKU</th>
-                                    <th scope="col" id="#">제품명</th>
-                                    <th scope="col" id="#">현재 재고량</th>
-                                    <th scope="col" id="#">안전 재고량</th>
+                                    <th scope="col" id="#">ID</th>
+                                    <th scope="col" id="#">고객 이름</th>
+                                    <th scope="col" id="#">이메일 주소</th>
+                                    <th scope="col" id="#">전화번호</th>
+                                    <th scope="col" id="#">회원등급</th>
+                                    <th scope="col" id="#">가입일</th>
                                     <th scope="col" id="#">상태</th>
                                 </tr>
                                 </thead>
@@ -173,36 +174,6 @@
     </section>
 </main>
 
-
-<main id="main" class="main">
-    <section class="section">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">입출고 기록</h5>
-                        <form id="update">
-                            <table class="table" id="userinfo">
-                                <thead>
-                                <tr>
-                                    <th scope="col" id="#">날짜</th>
-                                    <th scope="col" id="#">SKU</th>
-                                    <th scope="col" id="#">제품명</th>
-                                    <th scope="col" id="#">입출고 수량</th>
-                                    <th scope="col" id="#">담당자</th>
-                                    <th scope="col" id="#">비고</th>
-                                </tr>
-                                </thead>
-                                <tbody id="OrdTable">
-                                </tbody>
-                            </table>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-</main>
 <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 
@@ -210,6 +181,8 @@
 <script src="assets/js/pages/dashboard.js"></script>
 
 <script src="assets/js/main.js"></script>
+<script>
+</script>
 </body>
 
 </html>

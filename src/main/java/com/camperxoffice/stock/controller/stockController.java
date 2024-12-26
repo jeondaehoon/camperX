@@ -14,10 +14,14 @@ public class stockController {
     public String capmerX_stockInfo() throws Exception {
         return "stock/stockInfo";
     }
-}
 
     @RequestMapping("/capmerX_stockLog")
     public String capmerX_stockLog() throws Exception {
         return "stock/stockLog";
+    }
+
+    @RequestMapping("/capmerX_stockAlert")
+    public String capmerX_stockAlert() throws Exception {
+        return "stock/stockAlert";
     }
 }

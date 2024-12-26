@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="assets/vendors/iconly/bold.css">
 
     <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
 </head>
@@ -132,14 +131,14 @@
 <main id="main" class="main">
     <div class="pagetitle">
         <h1 class="h1-title">사용자 관리</h1>
-        <form id="searchform">
+        <form id="adminform">
             <input type="hidden" id="currentPage" name="currentPage" value="1">
             <table style="width: 10%; border-spacing: 10px;">
                 <tr>
-                    <td><input type='text' id='userName' name='userName' placeholder="이름을 입력하세요" class="form-control"></td>
-                    <td><input type='button' onclick='searchlist()' value='검색' class="btn btn-dark"></td>
+                    <td><input type='text' name='adminName' placeholder="이름을 입력하세요" class="form-control"></td>
+                    <td><input type='button' onclick='adminList()' value='검색' class="btn btn-dark"></td>
                     <td><input type='button' onclick='openModal()' value='추가' class="btn btn-dark"></td>
-                    <td><input type='button' onclick='searchlist()' value='삭제' class="btn btn-dark"></td>
+                    <td><input type='button' onclick='adminleave()' value='삭제' class="btn btn-dark"></td>
 
                 </tr>
             </table>
@@ -152,20 +151,20 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">직원정보</h5>
-                        <form id="update">
+                        <form id="leaveform">
                             <table class="table" id="userinfo">
                                 <thead>
                                 <tr>
                                     <th scope="col"><input type="checkbox" id="selectAll" onclick="toggleSelectAll()"></th>
-                                    <th scope="col" id="#">ID</th>
-                                    <th scope="col" id="#">이름</th>
-                                    <th scope="col" id="#">이메일</th>
-                                    <th scope="col" id="#">직책/소속</th>
-                                    <th scope="col" id="#">연락처</th>
-                                    <th scope="col" id="#">상태</th>
+                                    <th scope="col" id="adminId" name="adminID">ID</th>
+                                    <th scope="col" id="adminName" name="adminName">이름</th>
+                                    <th scope="col" id="adminEmail">이메일</th>
+                                    <th scope="col" id="posDept">직책/소속</th>
+                                    <th scope="col" id="adminPhone">연락처</th>
+                                    <th scope="col" id="adminStatus">상태</th>
                                 </tr>
                                 </thead>
-                                <tbody id="OrdTable">
+                                <tbody id="adminListTable">
                                 </tbody>
                             </table>
                         </form>
@@ -189,22 +188,26 @@
                 </div>
                 <!--모달내용-->
                 <div class="modal-body">
-                    <form>
+                    <form id ="adminaddform">
                         <div class="mb-3">
-                            <label for="username" class="form-label">사용자 이름</label>
-                            <input type="text" class="form-control" id="username" placeholder="사용자 이름을 입력하세요" required>
+                            <label for="adminName" class="form-label">사용자 이름</label>
+                            <input type="text" class="form-control" name="adminName" placeholder="사용자 이름을 입력하세요" required>
                         </div>
                         <div class="mb-3">
-                            <label for="username" class="form-label">사용자 아이디</label>
-                            <input type="text" class="form-control" id="userid" placeholder="사용자 아이디를 입력하세요" required>
+                            <label for="adminId" class="form-label">사용자 아이디</label>
+                            <input type="text" class="form-control" name="adminId" placeholder="사용자 아이디를 입력하세요" required>
                         </div>
                         <div class="mb-3">
-                            <label for="email" class="form-label">이메일</label>
-                            <input type="email" class="form-control" id="email" placeholder="이메일을 입력하세요" required>
+                            <label for="adminEmail" class="form-label">이메일</label>
+                            <input type="email" class="form-control" name="adminEmail" placeholder="이메일을 입력하세요" required>
                         </div>
                         <div class="mb-3">
-                            <label for="password" class="form-label">비밀번호</label>
-                            <input type="password" class="form-control" id="password" placeholder="비밀번호를 입력하세요" required>
+                            <label for="adminPwd" class="form-label">비밀번호</label>
+                            <input type="password" class="form-control" name="adminPwd" placeholder="비밀번호를 입력하세요" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="adminPhone" class="form-label">전화번호</label>
+                            <input type="text" class="form-control" name="adminPhone" placeholder="전화번호를 입력하세요" required>
                         </div>
                     </form>
                 </div>
@@ -216,7 +219,7 @@
                         <i class="bx bx-x d-block d-sm-none"></i>
                         <span class="d-none d-sm-block">취소</span>
                     </button>
-                    <button type="button" class="btn btn-dark ml-1" data-bs-dismiss="modal">
+                    <button type="button" class="btn btn-dark ml-1" data-bs-dismiss="modal" onclick="adminadd()">
                         <i class="bx bx-check d-block d-sm-none"></i>
                         <span class="d-none d-sm-block">확인</span>
                     </button>
@@ -227,17 +230,63 @@
 </main>
 <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
-
-<script src="assets/vendors/apexcharts/apexcharts.js"></script>
-<script src="assets/js/pages/dashboard.js"></script>
-
-<script src="assets/js/main.js"></script>
+<script src="/assets/js/jquery-3.7.1.min.js"></script>
+<script src="/assets/js/common.js"></script>
 <script>
-
     function openModal() {
         var myModal = new bootstrap.Modal(document.getElementById('dark'));
         myModal.show();
     }
+    //admin list search start
+    function adminList() {
+        call_server(adminform, '/admin/search', setAdminList);
+    }
+
+    function setAdminList(list){
+        $('adminListTable tbody').empty();
+        if(list.length === 0) {
+            $('adminListTable').append('<tr><td colspan="8">검색된 상품이 없습니다.</td></tr>');
+        } else {
+            for (var i = 0; i < list.length; i++){
+                var str = "<tr>";
+                str += "<td><input type='checkbox' name='adminArry[" + i + "]' data-id='" + list[i].adminName + "' value='" + list[i].adminId + "'></td>";
+                str += "<td>" + list[i].adminId + "</td>";
+                str += "<td>" + list[i].adminName + "</td>";
+                str += "<td>" + list[i].adminEmail + "</td>";
+                str += "<td>" + list[i].posDept + "</td>";
+                str += "<td>" + list[i].adminPhone + "</td>";
+                str += "<td>" + list[i].adminStatus + "</td>";
+                str += "</tr>";
+                $('#adminListTable').append(str);
+            }
+        }
+    }
+    //admin list search end
+
+
+    //admin add start
+    function adminadd(){
+        call_server(adminaddform, 'admin/add', setadminAdd)
+    }
+
+    function setadminAdd(data){
+        alert("저장완료")
+    }
+    //admin add end
+
+    //admin leave start
+    function adminleave(){
+        call_server(leaveform, 'admin/leave' ,setadminLeave)
+    }
+
+    function setadminLeave(data){
+        if(data){
+            alert("변경완료")
+        }else {
+            alert("진행중오류발생")
+        }
+    }
+    //admin leave end
 </script>
 </body>
 

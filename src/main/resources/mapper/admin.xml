@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.camperxoffice.admin.dao.adminDao">
+
+    <resultMap type= "com.vo.admin.AdminVO" id="AdminMap">
+        <result column="ADMIN_ID" property="adminId"/>
+        <result column="ADMIN_NAME" property="adminName"/>
+        <result column="POS_DEPT" property="posDept"/>
+        <result column="ADMIN_EMAIL" property="adminEmail"/>
+        <result column="ADMIN_PHONE" property="adminPhone"/>
+        <result column="ADMIN_PWD" property="adminPwd"/>
+        <result column="ADMIN_STATUS" property="adminStatus"/>
+        <result column="ADMIN_JDT" property="adminJdt"/>
+    </resultMap>
+
+    <select id="setAdminList" resultMap="AdminMap">
+        SELECT
+            ADMIN_ID,
+            ADMIN_NAME,
+            ADMIN_EMAIL,
+            POS_DEPT,
+            ADMIN_PHONE,
+            ADMIN_STATUS
+        FROM ADMIN_INFO
+        WHERE 1=1
+        <if test="adminId != null and adminId != ''">
+            AND ADMIN_ID LIKE '%' || #{adminId} || '%'
+        </if>
+    </select>
+
+    <insert id="adminAdd">
+        INSERT INTO ADMIN_INFO (ADMIN_ID, ADMIN_NAME, POS_DEPT, ADMIN_EMAIL, ADMIN_PHONE, ADMIN_PWD, ADMIN_STATUS, ADMIN_JDT)
+        VALUES (#{adminId}, #{adminName}, '사원', #{adminEmail}, #{adminPhone}, #{adminPwd}, '재직중', SYSDATE)
+    </insert>
+
+    <update id="adminLeave">
+        UPDATE ADMIN_INFO
+        SET ADMIN_STATUS = '퇴사'
+        WHERE ADMIN_ID = #{adminId}
+    </update>
+</mapper>
+
+

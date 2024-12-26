@@ -131,7 +131,7 @@
 </div>
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1 class="h1-title">재고 추적</h1>
+        <h1 class="h1-title">재고 알림</h1>
         <form id="searchform">
             <input type="hidden" id="currentPage" name="currentPage" value="1">
             <table style="width: 10%; border-spacing: 10px;">
@@ -150,16 +150,15 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">재고 현황</h5>
+                        <h5 class="card-title">알림 조건</h5>
                         <form id="update">
                             <table class="table" id="userinfo">
                                 <thead>
                                 <tr>
-                                    <th scope="col" id="#">SKU</th>
-                                    <th scope="col" id="#">제품명</th>
-                                    <th scope="col" id="#">현재 재고량</th>
-                                    <th scope="col" id="#">안전 재고량</th>
-                                    <th scope="col" id="#">상태</th>
+                                    <th scope="col" id="#">조건</th>
+                                    <th scope="col" id="#">기준 수량</th>
+                                    <th scope="col" id="#">설정값</th>
+                                    <th scope="col" id="#">알림 대상</th>
                                 </tr>
                                 </thead>
                                 <tbody id="OrdTable">
@@ -186,11 +185,10 @@
                                 <thead>
                                 <tr>
                                     <th scope="col" id="#">날짜</th>
-                                    <th scope="col" id="#">SKU</th>
                                     <th scope="col" id="#">제품명</th>
-                                    <th scope="col" id="#">입출고 수량</th>
+                                    <th scope="col" id="#">알림 유형</th>
+                                    <th scope="col" id="#">상태</th>
                                     <th scope="col" id="#">담당자</th>
-                                    <th scope="col" id="#">비고</th>
                                 </tr>
                                 </thead>
                                 <tbody id="OrdTable">
