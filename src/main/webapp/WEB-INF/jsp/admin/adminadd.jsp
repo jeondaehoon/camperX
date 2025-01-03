@@ -40,57 +40,57 @@
                     <li class="sidebar-title">Menu</li>
 
                     <li class="sidebar-item">
-                        <a href="/capmerX_dashboard#" class='sidebar-link'>
+                        <a href="/capmerX_dashboard" class='sidebar-link'>
                             <i class="bi bi-border-all"></i>
                             <span>데시보드</span>
                         </a>
                     </li>
 
-                    <li class="sidebar-item active has-sub">
-                        <a href="/capmerX_adminadd" class='sidebar-link'>
+                    <li class="sidebar-item has-sub">
+                        <a href="#" class='sidebar-link'>
                             <i class="bi bi-person-workspace"></i>
                             <span>사용자 관리</span>
                         </a>
                         <ul class="submenu ">
                             <li class="submenu-item">
-                                <a href="/capmerX_adminadd">계정 생성/관리</a>
+                                <a href="/camperX_adminadd">계정 생성/관리</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="/capmerX_adminRoles">권한 설정</a>
+                                <a href="/camperX_adminRoles">권한 설정</a>
                             </li>
                         </ul>
-                    <li class="sidebar-item  has-sub">
+                    <li class="sidebar-item has-sub">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-box-seam"></i>
                             <span>재고 관리</span>
                         </a>
                         <ul class="submenu ">
                             <li class="submenu-item ">
-                                <a href="/capmerX_stockInfo">제품 관리</a>
+                                <a href="/camperX_stockInfo">제품 관리</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="#">재고 추적</a>
+                                <a href="/camperX_stockLog">재고 추적</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="#">재고 알림</a>
+                                <a href="/camperX_stockAlert">재고 알림</a>
                             </li>
                         </ul>
                     </li>
 
-                    <li class="sidebar-item  has-sub">
+                    <li class="sidebar-item active has-sub">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-basket3"></i>
                             <span>주문 관리</span>
                         </a>
                         <ul class="submenu ">
                             <li class="submenu-item ">
-                                <a href="#">주문 처리</a>
+                                <a href="/camperX_orderProcess">주문 처리</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="#">주문 조회</a>
+                                <a href="camperX_orderHistory">주문 조회</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="#">환불 처리</a>
+                                <a href="camperX_orderCancel">환불 처리</a>
                             </li>
                         </ul>
                     </li>
@@ -101,10 +101,10 @@
                         </a>
                         <ul class="submenu ">
                             <li class="submenu-item ">
-                                <a href="#">고객 정보 관리</a>
+                                <a href="camperX_userInfo">고객 정보 관리</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="#">고객 서비스</a>
+                                <a href="camperX_userService">고객 서비스</a>
                             </li>
                         </ul>
                     </li>
@@ -232,6 +232,7 @@
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="/assets/js/jquery-3.7.1.min.js"></script>
 <script src="/assets/js/common.js"></script>
+<script src="assets/js/main.js"></script>
 <script>
     function openModal() {
         var myModal = new bootstrap.Modal(document.getElementById('dark'));

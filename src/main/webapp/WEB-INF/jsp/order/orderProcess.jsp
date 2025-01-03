@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="assets/vendors/iconly/bold.css">
 
     <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
 </head>
@@ -41,23 +40,23 @@
                     <li class="sidebar-title">Menu</li>
 
                     <li class="sidebar-item">
-                        <a href="/capmerX_dashboard#" class='sidebar-link'>
+                        <a href="/capmerX_dashboard" class='sidebar-link'>
                             <i class="bi bi-border-all"></i>
                             <span>데시보드</span>
                         </a>
                     </li>
 
                     <li class="sidebar-item has-sub">
-                        <a href="/capmerX_adminadd" class='sidebar-link'>
+                        <a href="#" class='sidebar-link'>
                             <i class="bi bi-person-workspace"></i>
                             <span>사용자 관리</span>
                         </a>
                         <ul class="submenu ">
                             <li class="submenu-item">
-                                <a href="/capmerX_adminadd">계정 생성/관리</a>
+                                <a href="/camperX_adminadd">계정 생성/관리</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="/capmerX_adminRoles">권한 설정</a>
+                                <a href="/camperX_adminRoles">권한 설정</a>
                             </li>
                         </ul>
                     <li class="sidebar-item has-sub">
@@ -67,13 +66,13 @@
                         </a>
                         <ul class="submenu ">
                             <li class="submenu-item ">
-                                <a href="/capmerX_stockInfo">제품 관리</a>
+                                <a href="/camperX_stockInfo">제품 관리</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="/capmerX_stockLog">재고 추적</a>
+                                <a href="/camperX_stockLog">재고 추적</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="/capmerX_stockAlert">재고 알림</a>
+                                <a href="/camperX_stockAlert">재고 알림</a>
                             </li>
                         </ul>
                     </li>
@@ -85,13 +84,13 @@
                         </a>
                         <ul class="submenu ">
                             <li class="submenu-item ">
-                                <a href="/capmerX_orderProcess">주문 처리</a>
+                                <a href="/camperX_orderProcess">주문 처리</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="#">주문 조회</a>
+                                <a href="camperX_orderHistory">주문 조회</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="#">환불 처리</a>
+                                <a href="camperX_orderCancel">환불 처리</a>
                             </li>
                         </ul>
                     </li>
@@ -102,10 +101,10 @@
                         </a>
                         <ul class="submenu ">
                             <li class="submenu-item ">
-                                <a href="#">고객 정보 관리</a>
+                                <a href="camperX_userInfo">고객 정보 관리</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="#">고객 서비스</a>
+                                <a href="camperX_userService">고객 서비스</a>
                             </li>
                         </ul>
                     </li>
@@ -136,11 +135,11 @@
             <input type="hidden" id="currentPage" name="currentPage" value="1">
             <table style="width: 10%; border-spacing: 10px;">
                 <tr>
-                    <td><input type='text' id='userName' name='userName' placeholder="상품명을 입력하세요" class="form-control"></td>
-                    <td><input type='button' onclick='searchlist()' value='검색' class="btn btn-dark"></td>
-                    <td><input type='button' onclick='searchlist()' value='배송중' class="btn btn-dark"></td>
-                    <td><input type='button' onclick='searchlist()' value='배송완료' class="btn btn-dark"></td>
-                    <td><input type='button' onclick='searchlist()' value='삭제' class="btn btn-dark"></td>
+                    <td><input type='text' id='userId' name='userId' placeholder="상품명을 입력하세요" class="form-control"></td>
+                    <td><input type='button' onclick='orderListSearch()' value='검색' class="btn btn-dark"></td>
+                    <td><input type='button' onclick='#' value='배송중' class="btn btn-dark"></td>
+                    <td><input type='button' onclick='#' value='배송완료' class="btn btn-dark"></td>
+                    <td><input type='button' onclick='#' value='삭제' class="btn btn-dark"></td>
                     <td><input type='button' onclick='openModal()' value='test' class="btn btn-dark"></td>
                 </tr>
             </table>
@@ -152,19 +151,19 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <form id="update">
+                        <form id="orderListForm">
                             <table class="table" id="userinfo">
                                 <thead>
                                 <tr>
                                     <th scope="col"><input type="checkbox" id="selectAll" onclick="toggleSelectAll()"></th>
-                                    <th scope="col" id="#">주문번호</th>
-                                    <th scope="col" id="#">고객 이름</th>
-                                    <th scope="col" id="#">상품명</th>
-                                    <th scope="col" id="#">수량</th>
-                                    <th scope="col" id="#">상태</th>
+                                    <th scope="col" id="ordCode" name="ordCode">주문번호</th>
+                                    <th scope="col" id="userId" name="userId">고객 이름</th>
+                                    <th scope="col" id="prdName" name="prdName">상품명</th>
+                                    <th scope="col" id="buyQty" name="buyQty">수량</th>
+                                    <th scope="col" id="returnStatus" name="returnStatus">상태</th>
                                 </tr>
                                 </thead>
-                                <tbody id="OrdTable">
+                                <tbody id="orderList">
                                 </tbody>
                             </table>
                         </form>
@@ -261,15 +260,37 @@
 
 <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
-
-<script src="assets/vendors/apexcharts/apexcharts.js"></script>
-<script src="assets/js/pages/dashboard.js"></script>
-
+<script src="/assets/js/jquery-3.7.1.min.js"></script>
+<script src="/assets/js/common.js"></script>
 <script src="assets/js/main.js"></script>
 <script>
     function openModal() {
         var myModal = new bootstrap.Modal(document.getElementById('orderDetailModal'));
         myModal.show();
+    }
+
+    function orderListSearch(){
+        call_server(searchform, 'order/search', setorderSearch)
+    }
+
+    function setorderSearch(list){
+        console.log(list);
+        $('orderList tbody').empty();
+        if(list.length === 0) {
+            $('orderList').append('<tr><td colspan="8">검색된 고객이 없습니다.</td></tr>');
+        } else {
+            for (var i = 0; i < list.length; i++){
+                var str = "<tr>";
+                str += "<td><input type='checkbox' name='orderArry[" + i + "]' data-id='" + list[i].ordCode + "' value='" + list[i].userId + "'></td>";
+                str += "<td>" + list[i].ordCode + "</td>";
+                str += "<td>" + list[i].userId + "</td>";
+                str += "<td>" + list[i].prdName + "</td>";
+                str += "<td>" + list[i].buyQty + "</td>";
+                str += "<td>" + list[i].returnStatus + "</td>";
+                str += "</tr>";
+                $('#orderList').append(str);
+            }
+        }
     }
 </script>
 </body>

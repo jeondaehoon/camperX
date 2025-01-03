@@ -48,16 +48,16 @@
                     </li>
 
                     <li class="sidebar-item has-sub">
-                        <a href="/capmerX_adminadd" class='sidebar-link'>
+                        <a href="#" class='sidebar-link'>
                             <i class="bi bi-person-workspace"></i>
                             <span>사용자 관리</span>
                         </a>
                         <ul class="submenu ">
                             <li class="submenu-item">
-                                <a href="/capmerX_adminadd">계정 생성/관리</a>
+                                <a href="/camperX_adminadd">계정 생성/관리</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="/capmerX_adminRoles">권한 설정</a>
+                                <a href="/camperX_adminRoles">권한 설정</a>
                             </li>
                         </ul>
                     <li class="sidebar-item has-sub">

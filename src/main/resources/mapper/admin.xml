@@ -11,6 +11,8 @@
         <result column="ADMIN_PWD" property="adminPwd"/>
         <result column="ADMIN_STATUS" property="adminStatus"/>
         <result column="ADMIN_JDT" property="adminJdt"/>
+        <result column="ADMIN_DOB" property="adminDob"/>
+        <result column="ADMIN_LV" property="adminLv"/>
     </resultMap>
 
     <select id="setAdminList" resultMap="AdminMap">
@@ -20,7 +22,9 @@
             ADMIN_EMAIL,
             POS_DEPT,
             ADMIN_PHONE,
-            ADMIN_STATUS
+            ADMIN_STATUS,
+            ADMIN_DOB,
+            ADMIN_Lv
         FROM ADMIN_INFO
         WHERE 1=1
         <if test="adminId != null and adminId != ''">

@@ -10,12 +10,12 @@ public class userController {
     @Autowired
     userService service;
 
-    @RequestMapping("/capmerX_userInfo")
+    @RequestMapping("/camperX_userInfo")
     public String capmerX_userInfo() throws Exception {
         return "user/userInfo";
     }
 
-    @RequestMapping("/capmerX_userService")
+    @RequestMapping("/camperX_userService")
     public String capmerX_userService() throws Exception {
         return "user/userService";
     }

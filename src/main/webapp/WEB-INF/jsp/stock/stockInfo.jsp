@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="assets/vendors/iconly/bold.css">
 
     <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
 </head>
@@ -41,23 +40,23 @@
                     <li class="sidebar-title">Menu</li>
 
                     <li class="sidebar-item">
-                        <a href="/capmerX_dashboard#" class='sidebar-link'>
+                        <a href="/capmerX_dashboard" class='sidebar-link'>
                             <i class="bi bi-border-all"></i>
                             <span>데시보드</span>
                         </a>
                     </li>
 
                     <li class="sidebar-item has-sub">
-                        <a href="/capmerX_adminadd" class='sidebar-link'>
+                        <a href="#" class='sidebar-link'>
                             <i class="bi bi-person-workspace"></i>
                             <span>사용자 관리</span>
                         </a>
                         <ul class="submenu ">
                             <li class="submenu-item">
-                                <a href="/capmerX_adminadd">계정 생성/관리</a>
+                                <a href="/camperX_adminadd">계정 생성/관리</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="/capmerX_adminRoles">권한 설정</a>
+                                <a href="/camperX_adminRoles">권한 설정</a>
                             </li>
                         </ul>
                     <li class="sidebar-item active has-sub">
@@ -67,31 +66,31 @@
                         </a>
                         <ul class="submenu ">
                             <li class="submenu-item ">
-                                <a href="/capmerX_stockInfo">제품 관리</a>
+                                <a href="/camperX_stockInfo">제품 관리</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="capmerX_stockLog">재고 추적</a>
+                                <a href="/camperX_stockLog">재고 추적</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="/capmerX_stockAlert">재고 알림</a>
+                                <a href="/camperX_stockAlert">재고 알림</a>
                             </li>
                         </ul>
                     </li>
 
-                    <li class="sidebar-item  has-sub">
+                    <li class="sidebar-item has-sub">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-basket3"></i>
                             <span>주문 관리</span>
                         </a>
                         <ul class="submenu ">
                             <li class="submenu-item ">
-                                <a href="/capmerX_orderProcess">주문 처리</a>
+                                <a href="/camperX_orderProcess">주문 처리</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="#">주문 조회</a>
+                                <a href="camperX_orderHistory">주문 조회</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="#">환불 처리</a>
+                                <a href="camperX_orderCancel">환불 처리</a>
                             </li>
                         </ul>
                     </li>
@@ -102,10 +101,10 @@
                         </a>
                         <ul class="submenu ">
                             <li class="submenu-item ">
-                                <a href="#">고객 정보 관리</a>
+                                <a href="camperX_userInfo">고객 정보 관리</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="#">고객 서비스</a>
+                                <a href="camperX_userService">고객 서비스</a>
                             </li>
                         </ul>
                     </li>
@@ -137,7 +136,7 @@
             <table style="width: 10%; border-spacing: 10px;">
                 <tr>
                     <td><input type='text' id='userName' name='userName' placeholder="상품명을 입력하세요" class="form-control"></td>
-                    <td><input type='button' onclick='searchlist()' value='검색' class="btn btn-dark"></td>
+                    <td><input type='button' onclick='StockSearchList()' value='검색' class="btn btn-dark"></td>
                     <td><input type='button' onclick='openModal()' value='추가' class="btn btn-dark"></td>
                     <td><input type='button' onclick='searchlist()' value='삭제' class="btn btn-dark"></td>
 
@@ -156,14 +155,14 @@
                                 <thead>
                                 <tr>
                                     <th scope="col"><input type="checkbox" id="selectAll" onclick="toggleSelectAll()"></th>
-                                    <th scope="col" id="#">SKU</th>
-                                    <th scope="col" id="#">제품명</th>
-                                    <th scope="col" id="#">카테고리</th>
-                                    <th scope="col" id="#">가격</th>
-                                    <th scope="col" id="#">상태</th>
+                                    <th scope="col" id="prdCode">SKU</th>
+                                    <th scope="col" id="prdName">제품명</th>
+                                    <th scope="col" id="catCode">카테고리</th>
+                                    <th scope="col" id="price">가격</th>
+                                    <th scope="col" id="prdStatus">상태</th>
                                 </tr>
                                 </thead>
-                                <tbody id="OrdTable">
+                                <tbody id="StockListTable">
                                 </tbody>
                             </table>
                         </form>
@@ -177,7 +176,7 @@
             <div class="modal-content">
                 <div class="modal-header bg-dark white">
                 <span class="modal-title" id="myModalLabel150">
-                    사용자 추가
+                    상품 추가
                 </span>
                     <button type="button" class="close"
                             data-bs-dismiss="modal" aria-label="Close">
@@ -186,59 +185,72 @@
                 </div>
                 <!-- 모달 내용 시작 -->
                 <div class="modal-body">
-                    <form id="productForm">
+                        <form id="prdaddform" enctype="multipart/form-data">
+                            <input type="hidden" id="catUplv" name="catUplv">
+                            <input type="hidden" id="catLv" name="catLv">
                         <!-- 상품 이름 -->
                         <div class="mb-3">
-                            <label for="productName" class="form-label">상품명</label>
-                            <input type="text" class="form-control" id="productName" placeholder="상품명을 입력하세요" required>
+                            <label for="prdName" class="form-label">상품명</label>
+                            <input type="text" class="form-control" id="prdName" name="prdName" placeholder="상품명을 입력하세요" required>
                         </div>
 
                         <!-- SKU -->
                         <div class="mb-3">
-                            <label for="sku" class="form-label">SKU (고유 상품 코드)</label>
-                            <input type="text" class="form-control" id="sku" placeholder="상품의 SKU를 입력하세요" required>
+                            <label for="prdCode" class="form-label">SKU (고유 상품 코드)</label>
+                            <input type="text" class="form-control" id="prdCode" name="prdCode" placeholder="상품의 SKU를 입력하세요" required>
                         </div>
 
                         <!-- 가격 -->
                         <div class="mb-3">
                             <label for="price" class="form-label">가격</label>
-                            <input type="number" class="form-control" id="price" placeholder="가격을 입력하세요" required>
+                            <input type="number" class="form-control" id="price" name="price" placeholder="가격을 입력하세요" required>
                         </div>
 
-                        <!-- 카테고리 선택 -->
+                        <!-- 색상 -->
                         <div class="mb-3">
-                            <label for="category" class="form-label">카테고리</label>
-                            <select class="form-select" id="category" required>
+                            <label for="prdColor" class="form-label">색상</label>
+                            <input type="text" class="form-control" id="prdColor" name="prdColor" placeholder="색상코드를 입력하세요" required>
+                        </div>
+
+                        <!-- 카테고리 -->
+                        <div class="mb-3">
+                            <label for="maincatcode" class="form-label">카테고리</label>
+                            <select class="form-select" id="maincatcode" name="mainCode" onchange="catCodeSelect(this)" required>
                                 <option value="" disabled selected>카테고리를 선택하세요</option>
-                                <option value="텐트">텐트</option>
-                                <option value="의자">의자</option>
-                                <option value="조명">조명</option>
-                                <option value="액세서리">액세서리</option>
                             </select>
                         </div>
 
-                        <!-- 재고량 -->
                         <div class="mb-3">
-                            <label for="stock" class="form-label">재고량</label>
-                            <input type="number" class="form-control" id="stock" placeholder="재고량을 입력하세요" required>
+                            <label for="subcatcode" class="form-label">서브 카테고리</label>
+                            <select class="form-select" id="subcatcode" name="subCode" required>
+                                <option value="" disabled selected>서브 카테고리를 선택하세요</option>
+                            </select>
+                        </div>
+
+
+
+                            <!-- 재고량 -->
+                        <div class="mb-3">
+                            <label for="prdQty" class="form-label">재고량</label>
+                            <input type="number" class="form-control" id="prdQty" name="prdQty" placeholder="재고량을 입력하세요" required>
                         </div>
 
                         <!-- 설명 -->
                         <div class="mb-3">
-                            <label for="description" class="form-label">상품 설명</label>
-                            <textarea class="form-control" id="description" rows="3" placeholder="상품에 대한 설명을 입력하세요"></textarea>
+                            <label for="prdDesc" class="form-label">상품 설명</label>
+                            <textarea class="form-control" id="prdDesc" name="prdDesc" rows="3" placeholder="상품에 대한 설명을 입력하세요"></textarea>
                         </div>
 
                         <!-- 이미지 업로드 -->
                         <div class="mb-3">
-                            <label for="productImage" class="form-label">상품 이미지</label>
-                            <input type="file" class="form-control" id="productImage" accept="image/*">
+                            <label for="prdImg" class="form-label">상품 이미지</label>
+                            <input type="file" class="form-control" id="prdImg" name="prdImgFile" accept="image/*">
                         </div>
 
                         <!-- 안전 재고량 -->
                         <div class="mb-3">
-                            <label for="minStock" class="form-label">안전 재고량</label>
-                            <input type="number" class="form-control" id="minStock" placeholder="최소 안전 재고량을 설정하세요" required>
+                            <label for="safetyStock" class="form-label">안전 재고량</label>
+                            <input type="number" class="form-control" id="safetyStock" name="safetyStock" placeholder="최소 안전 재고량을 설정하세요" required>
                         </div>
 
                     </form>
@@ -251,7 +263,7 @@
                         <i class="bx bx-x d-block d-sm-none"></i>
                         <span class="d-none d-sm-block">취소</span>
                     </button>
-                    <button type="button" class="btn btn-dark ml-1" data-bs-dismiss="modal">
+                    <button type="button" onclick="prdadd()" class="btn btn-dark ml-1" data-bs-dismiss="modal">
                         <i class="bx bx-check d-block d-sm-none"></i>
                         <span class="d-none d-sm-block">확인</span>
                     </button>
@@ -263,16 +275,84 @@
 
 <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
-
-<script src="assets/vendors/apexcharts/apexcharts.js"></script>
-<script src="assets/js/pages/dashboard.js"></script>
-
+<script src="/assets/js/jquery-3.7.1.min.js"></script>
+<script src="/assets/js/common.js"></script>
 <script src="assets/js/main.js"></script>
 <script>
     function openModal() {
         var myModal = new bootstrap.Modal(document.getElementById('dark'));
+
+        $('#catUplv').val("");
+        $('#catLv').val(1);
+
+        call_server(prdaddform, '/cat/search', setcatList);
+
         myModal.show();
     }
+
+    var catelist = new Array();
+    function setcatList(list) {
+        catelist = list;
+        $('#maincatcode').empty();
+        for (var i = 0; i < list.length; i++) {
+            if(list[i].catUplv===' ') {
+                var str = "<option value='" + list[i].catCode + "'>" + list[i].catName + "</option>";
+                $('#maincatcode').append(str);
+            }
+        }
+    }
+
+    function catCodeSelect(obj, lev){
+        var cd = $(obj).val();
+        var lv = "";
+        for(var i=0;i<catelist.length;i++){
+            if(catelist[i].catCode==cd){
+                lv =  catelist[i].catLv;
+                break;
+            }
+        }
+        $('#subcatcode').empty();
+        for(var i=0;i<catelist.length;i++){
+            if(catelist[i].catUplv==lv){
+                var str = "<option value='" + catelist[i].catCode + "'>" + catelist[i].catName + "</option>";
+                $('#subcatcode').append(str);
+            }
+        }
+    }
+
+    function prdadd(){
+        call_server(prdaddform, 'stock/prdadd', setprdAdd)
+    }
+
+    function setprdAdd(){
+        alert("저장완료되었습니다.")
+    }
+
+    function StockSearchList() {
+        call_server(searchform, 'stock/search', setStockList)
+    }
+
+    function setStockList(list){
+        $('StockListTable tbody').empty();
+        if(list.length === 0) {
+            $('StockListTable').append('<tr><td colspan="8">검색된 상품이 없습니다.</td></tr>');
+        } else {
+            for (var i = 0; i < list.length; i++){
+                var str = "<tr>";
+                str += "<td><input type='checkbox' name='stockArry[" + i + "]' data-id='" + list[i].prdName + "' value='" + list[i].prdCode + "'></td>";
+                str += "<td>" + list[i].prdCode + "</td>";
+                str += "<td>" + list[i].prdName + "</td>";
+                str += "<td>" + list[i].catCode + "</td>";
+                str += "<td>" + addComma(list[i].price) + "</td>";
+                str += "<td>" + list[i].prdStatus + "</td>";
+                str += "</tr>";
+                $('#StockListTable').append(str);
+            }
+        }
+    }
+
+
+
 </script>
 </body>
 

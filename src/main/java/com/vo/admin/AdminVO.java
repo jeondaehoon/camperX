@@ -13,6 +13,8 @@ public class AdminVO {
     private String adminPwd;
     private String adminStatus;
     private String adminJdt;
+    private String adminDob;
+    private String adminLv;
 
     private String[] adminArry;
 }

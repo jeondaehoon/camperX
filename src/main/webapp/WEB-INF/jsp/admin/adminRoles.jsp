@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="assets/vendors/iconly/bold.css">
 
     <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
 </head>
@@ -48,16 +47,16 @@
                     </li>
 
                     <li class="sidebar-item active has-sub">
-                        <a href="/capmerX_adminadd" class='sidebar-link'>
+                        <a href="#" class='sidebar-link'>
                             <i class="bi bi-person-workspace"></i>
                             <span>사용자 관리</span>
                         </a>
                         <ul class="submenu ">
                             <li class="submenu-item">
-                                <a href="/capmerX_adminadd">계정 생성/관리</a>
+                                <a href="/camperX_adminadd">계정 생성/관리</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="/capmerX_adminRoles">권한 설정</a>
+                                <a href="/camperX_adminRoles">권한 설정</a>
                             </li>
                         </ul>
                     <li class="sidebar-item  has-sub">
@@ -67,13 +66,13 @@
                         </a>
                         <ul class="submenu ">
                             <li class="submenu-item ">
-                                <a href="/capmerX_stockInfo">제품 관리</a>
+                                <a href="/camperX_stockInfo">제품 관리</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="#">재고 추적</a>
+                                <a href="/camperX_stockLog">재고 추적</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="#">재고 알림</a>
+                                <a href="/camperX_stockAlert">재고 알림</a>
                             </li>
                         </ul>
                     </li>
@@ -85,13 +84,13 @@
                         </a>
                         <ul class="submenu ">
                             <li class="submenu-item ">
-                                <a href="#">주문 처리</a>
+                                <a href="/camperX_orderProcess">주문 처리</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="#">주문 조회</a>
+                                <a href="/camperX_orderHistory">주문 조회</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="#">환불 처리</a>
+                                <a href="/camperX_orderCancel">환불 처리</a>
                             </li>
                         </ul>
                     </li>
@@ -102,10 +101,10 @@
                         </a>
                         <ul class="submenu ">
                             <li class="submenu-item ">
-                                <a href="#">고객 정보 관리</a>
+                                <a href="/camperX_userInfo">고객 정보 관리</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="#">고객 서비스</a>
+                                <a href="/camperX_userService">고객 서비스</a>
                             </li>
                         </ul>
                     </li>
@@ -132,12 +131,12 @@
 <main id="main" class="main">
     <div class="pagetitle">
         <h1 class="h1-title">권한 설정</h1>
-        <form id="searchform">
+        <form id="adminform">
             <input type="hidden" id="currentPage" name="currentPage" value="1">
             <table style="width: 10%; border-spacing: 10px;">
                 <tr>
                     <td><input type='text' id='userName' name='userName' placeholder="이름을 입력하세요" class="form-control"></td>
-                    <td><input type='button' onclick='searchlist()' value='검색' class="btn btn-dark"></td>
+                    <td><input type='button' onclick='adminList()' value='검색' class="btn btn-dark"></td>
                     <td><input type='button' onclick='searchlist()' value='삭제' class="btn btn-dark"></td>
 
                 </tr>
@@ -164,7 +163,7 @@
                                     <th scope="col" id="#">권한</th>
                                 </tr>
                                 </thead>
-                                <tbody id="OrdTable">
+                                <tbody id="adminListTable">
                                 </tbody>
                             </table>
                         </form>
@@ -178,8 +177,8 @@
         <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
             <div class="modal-content">
                 <!-- Modal Header -->
-                <div class="modal-header" style="background-color: #000;"> <!-- 배경색을 추가 -->
-                    <h4 class="modal-title text-white" id="myModalLabel16">상품발주</h4> <!-- 텍스트 색상 변경 -->
+                <div class="modal-header" style="background-color: #000;">
+                    <h4 class="modal-title text-white" id="myModalLabel16">상품발주</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
             </div>
@@ -228,11 +227,36 @@
 </main>
 <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
-
-<script src="assets/vendors/apexcharts/apexcharts.js"></script>
-<script src="assets/js/pages/dashboard.js"></script>
-
+<script src="/assets/js/jquery-3.7.1.min.js"></script>
+<script src="/assets/js/common.js"></script>
 <script src="assets/js/main.js"></script>
+<script>
+    //admin list search start
+    function adminList() {
+        call_server(adminform, '/admin/search', setAdminList);
+    }
+
+    function setAdminList(list){
+        $('adminListTable tbody').empty();
+        if(list.length === 0) {
+            $('adminListTable').append('<tr><td colspan="8">검색된 상품이 없습니다.</td></tr>');
+        } else {
+            for (var i = 0; i < list.length; i++){
+                var str = "<tr>";
+                str += "<td><input type='checkbox' name='adminArry[" + i + "]' data-id='" + list[i].adminName + "' value='" + list[i].adminId + "'></td>";
+                str += "<td>" + list[i].adminName + "</td>";
+                str += "<td>" + list[i].adminEmail + "</td>";
+                str += "<td>" + list[i].adminPhone + "</td>";
+                str += "<td>" + list[i].adminDob + "</td>";
+                str += "<td>" + list[i].adminStatus + "</td>";
+                str += "<td>" + list[i].adminLv + "</td>";
+                str += "</tr>";
+                $('#adminListTable').append(str);
+            }
+        }
+    }
+</script>
+
 </body>
 
 </html>

@@ -9,6 +9,15 @@ public class StockVO {
     private String stockSeq;
     private String stockDate;
     private String price;
-    private String currentStock;
+    private String prdQty;
     private String stockStatus;
+    private String notes;
+
+
+    private String prdName;
+    private String safetyStock;
+
+    private String inChatge;
+    private String purchaseQty;
 }
+

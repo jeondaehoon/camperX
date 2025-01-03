@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.camperxoffice.order.dao.orderDao">
+
+    <resultMap id="orderMap" type="com.vo.order.OrderVO">
+        <result column="ORD_CODE" property="ordCode"/>
+        <result column="USER_ID" property="userId"/>
+        <result column="PRD_NAME" property="prdName"/>
+        <result column="BUY_QTY" property="buyQty"/>
+        <result column="RETURN_STATUS" property="returnStatus"/>
+    </resultMap>
+
+    <select id="setorderSearch">
+        SELECT
+            ORD_CODE,
+            USER_ID,
+            PRD_NAME,
+            BUY_QTY,
+            RETURN_STATUS
+        FROM ORDER_INFO
+        WHERE 1=1
+    </select>
+
+</mapper>

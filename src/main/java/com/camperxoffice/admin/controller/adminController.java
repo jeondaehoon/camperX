@@ -1,7 +1,10 @@
 package com.camperxoffice.admin.controller;
 
 import com.camperxoffice.admin.service.adminService;
+import com.camperxoffice.util.Constant;
 import com.vo.admin.AdminVO;
+import com.vo.common.FileVO;
+import com.vo.product.PrdVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,13 +18,13 @@ public class adminController {
     @Autowired
     adminService service;
 
-    @RequestMapping("/capmerX_adminadd")
-    public String capmerX_adminadd() throws Exception {
+    @RequestMapping("/camperX_adminadd")
+    public String camperX_adminadd() throws Exception {
         return "admin/adminadd";
     }
 
-    @RequestMapping("/capmerX_adminRoles")
-    public String capmerX_adminRoles() throws Exception {
+    @RequestMapping("/camperX_adminRoles")
+    public String camperX_adminRoles() throws Exception {
         return "admin/adminRoles";
     }
 
@@ -60,4 +63,5 @@ public class adminController {
             return false;
         }
     }
+
 }

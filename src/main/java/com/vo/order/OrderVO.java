@@ -10,4 +10,6 @@ public class OrderVO {
     private String prdName;
     private String buyQty;
     private String returnStatus;
+
+    private String[] orderArry;
 }
