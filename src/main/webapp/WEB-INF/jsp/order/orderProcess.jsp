@@ -137,10 +137,8 @@
                 <tr>
                     <td><input type='text' id='userId' name='userId' placeholder="상품명을 입력하세요" class="form-control"></td>
                     <td><input type='button' onclick='orderListSearch()' value='검색' class="btn btn-dark"></td>
-                    <td><input type='button' onclick='#' value='배송중' class="btn btn-dark"></td>
-                    <td><input type='button' onclick='#' value='배송완료' class="btn btn-dark"></td>
-                    <td><input type='button' onclick='#' value='삭제' class="btn btn-dark"></td>
-                    <td><input type='button' onclick='openModal()' value='test' class="btn btn-dark"></td>
+                    <td><input type='button' onclick='orderShipped()' value='상품준비중' class="btn btn-dark"></td>
+                    <td><input type='button' onclick='orderDelivered()' value='배송완료' class="btn btn-dark"></td>
                 </tr>
             </table>
         </form>
@@ -157,10 +155,12 @@
                                 <tr>
                                     <th scope="col"><input type="checkbox" id="selectAll" onclick="toggleSelectAll()"></th>
                                     <th scope="col" id="ordCode" name="ordCode">주문번호</th>
-                                    <th scope="col" id="userId" name="userId">고객 이름</th>
+                                    <th scope="col" id="userName" name="userName">고객 이름</th>
+                                    <th scope="col" id="userId" name="userId">고객 아이디</th>
                                     <th scope="col" id="prdName" name="prdName">상품명</th>
                                     <th scope="col" id="buyQty" name="buyQty">수량</th>
-                                    <th scope="col" id="returnStatus" name="returnStatus">상태</th>
+                                    <th scope="col" id="returnStatus" name="returnStatus">반품</th>
+                                    <th scope="col" id="ordStatus" name="ordStatus">상품상태</th>
                                 </tr>
                                 </thead>
                                 <tbody id="orderList">
@@ -275,23 +275,58 @@
 
     function setorderSearch(list){
         console.log(list);
-        $('orderList tbody').empty();
+        $('#orderList').empty();
         if(list.length === 0) {
-            $('orderList').append('<tr><td colspan="8">검색된 고객이 없습니다.</td></tr>');
+            $('#orderList').append('<tr><td colspan="8">검색된 고객이 없습니다.</td></tr>');
         } else {
             for (var i = 0; i < list.length; i++){
                 var str = "<tr>";
-                str += "<td><input type='checkbox' name='orderArry[" + i + "]' data-id='" + list[i].ordCode + "' value='" + list[i].userId + "'></td>";
+                str += "<td><input type='checkbox' name='orderArry[" + i + "]' data-id='" + list[i].userId + "' value='" + list[i].ordCode + "'></td>";
                 str += "<td>" + list[i].ordCode + "</td>";
+                str += "<td>" + list[i].userName + "</td>";
                 str += "<td>" + list[i].userId + "</td>";
                 str += "<td>" + list[i].prdName + "</td>";
                 str += "<td>" + list[i].buyQty + "</td>";
                 str += "<td>" + list[i].returnStatus + "</td>";
+                str += "<td>" + list[i].ordStatus + "</td>";
                 str += "</tr>";
                 $('#orderList').append(str);
             }
         }
     }
+
+
+    function orderShipped(){
+        call_server(orderListForm, 'order/Shipped', setShipped)
+    }
+
+    function setShipped(data){
+        if(data){
+            alert("변경이 완료 되었습니다.")
+            orderListSearch();
+        }else {
+            alert("오류가 발생하였습니다.")
+        }
+    }
+
+    function orderDelivered(){
+        call_server(orderListForm, 'order/Delivered', setDelivered)
+    }
+
+    function setDelivered(data){
+        if(data){
+            alert("변경이 완료 되었습니다.")
+            orderListSearch();
+        }else {
+            alert("오류가 발생하였습니다.")
+        }
+    }
+
+    function toggleSelectAll() {
+        var isChecked = $('#selectAll').prop('checked');
+        $('input[name^="orderArry"]').prop('checked', isChecked);
+    }
+
 </script>
 </body>
 

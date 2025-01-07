@@ -15,4 +15,20 @@ public class orderService {
     public List<OrderVO> setorderSearch(OrderVO vo) throws Exception {
         return dao.setorderSearch(vo);
     }
+
+    public int orderShipped(OrderVO vo) throws Exception {
+        return dao.orderShipped(vo);
+    }
+
+    public int orderDelivered(OrderVO vo) throws Exception {
+        return dao.orderDelivered(vo);
+    }
+
+    public List<OrderVO> HistoryList(OrderVO vo) throws Exception {
+        return dao.HistoryList(vo);
+    }
+
+    public List<OrderVO> ReturnList(OrderVO vo) throws Exception {
+        return dao.ReturnList(vo);
+    }
 }

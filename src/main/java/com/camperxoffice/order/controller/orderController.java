@@ -34,7 +34,55 @@ public class orderController {
     @ResponseBody
     public List<OrderVO> setorderSearch(@ModelAttribute OrderVO vo) throws Exception {
         List<OrderVO> list = service.setorderSearch(vo);
-        System.out.println(list.size());
+        return list;
+    }
+
+    @RequestMapping("/order/Shipped")
+    @ResponseBody
+    public boolean orderShipped(@ModelAttribute OrderVO vo) throws Exception{
+        if (vo.getOrderArry() == null || vo.getOrderArry().length == 0) {
+            return false;
+        }
+        int c = 0;
+        for (int i = 0; i < vo.getOrderArry().length; i++) {
+            if (vo.getOrderArry()[i] != null && !"".equals(vo.getOrderArry()[i])) {
+                OrderVO newVo = new OrderVO();
+                newVo.setOrdCode(vo.getOrderArry()[i]);
+                c += service.orderShipped(newVo);
+            }
+        }
+        return c > 0;
+    }
+
+    @RequestMapping("/order/Delivered")
+    @ResponseBody
+    public boolean orderDelivered(@ModelAttribute OrderVO vo) throws Exception{
+        if (vo.getOrderArry() == null || vo.getOrderArry().length == 0) {
+            return false;
+        }
+        int c = 0;
+        for (int i = 0; i < vo.getOrderArry().length; i++) {
+            if (vo.getOrderArry()[i] != null && !"".equals(vo.getOrderArry()[i])) {
+                OrderVO newVo = new OrderVO();
+                newVo.setOrdCode(vo.getOrderArry()[i]);
+                c += service.orderDelivered(newVo);
+            }
+        }
+        return c > 0;
+    }
+
+    @RequestMapping("/order/history")
+    @ResponseBody
+    public List<OrderVO> HistoryList(@ModelAttribute OrderVO vo) throws Exception {
+        List<OrderVO> list = service.HistoryList(vo);
+        return list;
+    }
+
+    @RequestMapping("/order/Return")
+    @ResponseBody
+    public List<OrderVO> ReturnList(@ModelAttribute OrderVO vo) throws Exception {
+        List<OrderVO> list = service.ReturnList(vo);
         return list;
     }
 }
+

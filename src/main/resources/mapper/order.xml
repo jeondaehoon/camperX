@@ -8,17 +8,54 @@
         <result column="PRD_NAME" property="prdName"/>
         <result column="BUY_QTY" property="buyQty"/>
         <result column="RETURN_STATUS" property="returnStatus"/>
+        <result column="USER_NAME" property="userName"/>
+        <result column="ORDER_STATUS" property="ordStatus"/>
     </resultMap>
 
-    <select id="setorderSearch">
+    <select id="setorderSearch" resultMap="orderMap">
         SELECT
             ORD_CODE,
+            USER_NAME,
             USER_ID,
             PRD_NAME,
             BUY_QTY,
-            RETURN_STATUS
+            RETURN_STATUS,
+            ORDER_STATUS
         FROM ORDER_INFO
         WHERE 1=1
     </select>
 
+    <update id="orderShipped">
+        UPDATE ORDER_INFO
+        SET ORDER_STATUS = '상품준비중'
+        WHERE ORD_CODE = #{ordCode}
+    </update>
+
+    <update id="orderDelivered">
+        UPDATE ORDER_INFO
+        SET ORDER_STATUS = '배송완료'
+        WHERE ORD_CODE = #{ordCode}
+    </update>
+
+    <select id="HistoryList" resultMap="orderMap">
+        SELECT
+            ORD_CODE,
+            USER_NAME,
+            PRD_NAME,
+            BUY_QTY,
+            ORDER_STATUS
+        FROM ORDER_INFO
+        WHERE ORDER_STATUS = '배송완료'
+    </select>
+
+    <select id="ReturnList" resultMap="orderMap">
+        SELECT
+            ORD_CODE,
+            USER_NAME,
+            PRD_NAME,
+            BUY_QTY,
+            ORDER_STATUS
+        FROM ORDER_INFO
+        WHERE RETURN_STATUS = 'Y'
+    </select>
 </mapper>
